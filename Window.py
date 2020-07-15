@@ -7,6 +7,7 @@ class Window():
         self.Draw_Function=self.Default_Draw
 
     def Default_Draw(self):
+        glClearColor(0.64,0.64,0.64,1)
         # 清除之前畫面
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glRotatef(0.1, 0, 5, 0)  # (角度,x,y,z)
