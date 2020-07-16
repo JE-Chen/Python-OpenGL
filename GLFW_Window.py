@@ -1,7 +1,6 @@
 import glfw
 from OpenGL.GL import *
-
-
+from PIL import Image
 
 class GLFW_Window():
 
@@ -21,7 +20,7 @@ class GLFW_Window():
     def Clear_Color(self, R=0.24, G=0.22, B=0.22, A=1):
         glClearColor(R, G, B, A)
 
-    def __init__(self,Width=500,Height=500,Window_Name="GLFW_Window",X_Pos=200,Y_Pos=200):
+    def __init__(self,Width=500,Height=500,Window_Name="GLFW_Window",X_Pos=200,Y_Pos=200,Icon='air_01_blue.png'):
 
         self.Default_Size_Function=self.Default_Size_Change
         self.Default_Close_Function=self.Default_Close
@@ -44,11 +43,15 @@ class GLFW_Window():
 
         glViewport(X_Pos, Y_Pos, Width, Height)
 
+        Image_Icon=Image.open(Icon)
+        glfw.set_window_icon(self.Window,1,Image_Icon)
+
         glfw.set_window_close_callback(self.Window,self.Default_Close_Function)
 
         glfw.set_framebuffer_size_callback(self.Window,self.Default_Size_Function)
 
         self.Clear_Color()
+
 
     def Show_Window(self):
 
