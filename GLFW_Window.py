@@ -1,4 +1,5 @@
 import glfw
+import time
 from OpenGL.GL import *
 from PIL import Image
 
@@ -12,7 +13,7 @@ class GLFW_Window():
         self.Default_Size_Function = Function
 
     def Default_Close(self, Window):
-        print(Window,' Closed')
+        print(Window,' Press title bar X Closed')
 
     def Set_Close_Function(self, Function):
         self.Default_Close_Function=Function
@@ -20,10 +21,19 @@ class GLFW_Window():
     def Clear_Color(self, R=0.24, G=0.22, B=0.22, A=1):
         glClearColor(R, G, B, A)
 
+    def Default_Press(self,Window):
+        if glfw.get_key(Window,glfw.KEY_ESCAPE) == glfw.PRESS:
+            glfw.set_window_should_close(Window,True)
+            print(Window, ' Press Escape Closed')
+
+    def Set_Press_Function(self, Function):
+        self.Default_Press=Function
+
     def __init__(self,Width=500,Height=500,Window_Name="GLFW_Window",X_Pos=200,Y_Pos=200,Icon='air_01_blue.png'):
 
         self.Default_Size_Function=self.Default_Size_Change
         self.Default_Close_Function=self.Default_Close
+        self.Default_Press=self.Default_Press
 
         if not glfw.init():
             raise Exception("Check GLFW")
@@ -59,9 +69,13 @@ class GLFW_Window():
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
+            self.Default_Press(self.Window)
+
             glfw.swap_buffers(self.Window)
 
             glfw.poll_events()
+
+            time.sleep(0.01)
 
         glfw.terminate()
 
