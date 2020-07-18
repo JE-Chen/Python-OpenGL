@@ -29,6 +29,10 @@ class GLFW_Window():
     def Set_Press_Function(self, Function):
         self.Default_Press=Function
 
+    def Set_Icon(self,Icon):
+        Image_Icon=Image.open(Icon)
+        glfw.set_window_icon(self.Window,1,Image_Icon)
+
     def __init__(self,Width=500,Height=500,Window_Name="GLFW_Window",X_Pos=200,Y_Pos=200,Icon='air_01_blue.png'):
 
         self.Default_Size_Function=self.Default_Size_Change
